@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Patroller Sign On{% endblock %}
+{% block content %}
+
+  {% if error|length != 0 %}
+    {% if error[0] == 'red' %}
+      <div class="alert alert-danger">
+        {{ error[1] }}
+      </div>
+    {% elif error[0] != 'green' %}
+      <div class="alert alert-success">
+        {{ error[1] }}
+      </div>
+    {% endif %}
+  {% endif %}
+
+    <p>
+      Please login below:
+    </p>
+    <form action="login_user" method="post">
+      Username: <input type="text" name="username">
+      Password: <input type="password" name="password">
+      <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

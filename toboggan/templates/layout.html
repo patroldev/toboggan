@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block head %}
+      <title>Toboggan | {% block title %}{% endblock %} </title>
+    {% endblock %}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png"
+      href={{ url_for('static', filename="images/favicon.ico") }} />
+    <!-- Bootstrap -->
+    <link href={{ url_for('static', filename='css/bootstrap.css') }} rel="stylesheet">
+    <link href={{ url_for('static', filename='css/custom.css') }} rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript) -->
+    <script src={{ url_for('static', filename='js/jquery.js') }}></script>
+    <script src={{ url_for('static', filename='js/bootstrap.js') }}></script>
+  </head>
+  <body>
+    <div class="container" id="content">
+
+      <!-- Menu bar for all pages -->
+
+      <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+          <div class="container-fluid">
+              <div class="navbar-header"><a class="navbar-brand" href="#">Toboggan</a>
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                  </button>
+              </div>
+              <div class="collapse navbar-collapse navbar-menubuilder">
+                  <ul class="nav navbar-nav navbar-left">
+                      <li><a href="/">Home</a>
+                      </li>
+                      <li><a href="#">Dashboard</a>
+                      </li>
+                      <li><a href="#">New Incident</a>
+                      </li>
+                      <li><a href="#">Reports</a>
+                      </li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated %}
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ current_user.name }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                        <li><a href="/settings">Account Settings</a></li>
+                        <li><a href="#">User Management</a></li>
+                        <li><a href="create_user.html">Create New User</a></li>
+                        <li><a href="#">Application Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/logout">Logout</a></li>
+                        </ul>
+                      </li>
+                    {% else %}
+                      <li><a href="/login">Login</a>
+                      </li>
+                    {% endif %}
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <!-- Content of each page will go here -->
+
+      {% block content %}{% endblock %}
+
+      <!-- Footer Content -->
+
+      <div id="footer">
+          {% block footer %}
+          Built &amp; designed by <a href="http://github.com/patroldev">chapinb</a>.
+          {% endblock %}
+      </div>
+
+    </div>
+  </body>
+</html>

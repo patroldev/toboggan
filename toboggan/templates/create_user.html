@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Patroller Sign On{% endblock %}
+{% block content %}
+
+  {% if error|length != 0 %}
+    {% if error[0] == 'red' %}
+      <div class="alert alert-danger">
+        {{ error[1] }}
+      </div>
+    {% elif error[0] == 'green' %}
+      <div class="alert alert-success">
+        {{ error[1] }}
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if dispatcher.query.all()|length == 0 %}
+    <!-- Create the first user, if none exist -->
+    <p>
+      Welcome to toboggan
+    </p>
+    <p>
+      Please create your first user:
+    </p>
+    <form action="create_first_user" method="post">
+      Username: <input type="text" name="username"> <br />
+      Password: <input type="password" name="password"><br />
+      Confirm Password: <input type="password" name="passwordconf"><br />
+      <input type="submit" value="Submit">
+    </form>
+  {% elif current_user.is_authenticated %}
+  <!-- Allow user creation if logged in -->
+    <p>
+      Please enter the new user credentials below:
+    </p>
+    <form action="add_user" method="post">
+      Username: <input type="text" name="username"><br />
+      Password: <input type="password" name="password"><br />
+      Confirm Password: <input type="password" name="passwordconf"><br />
+      <input type="submit" value="Submit">
+    </form>
+  {% else %}
+  <!-- Otherwise, require login to create user accounts -->
+    <p> Please <a href="login.html">login</a> to continue</p>
+
+  {% endif %}
+
+
+{% endblock %}
